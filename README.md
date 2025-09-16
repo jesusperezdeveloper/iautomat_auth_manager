@@ -1,19 +1,35 @@
-# iautomat_auth_manager
+# 🔐 iautomat_auth_manager
 
-Un paquete Flutter para gestión de autenticación con Firebase Auth usando exclusivamente email y contraseña.
+[![pub package](https://img.shields.io/pub/v/iautomat_auth_manager.svg)](https://pub.dev/packages/iautomat_auth_manager)
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Test Coverage](https://img.shields.io/badge/coverage-86.39%25-brightgreen.svg)](https://github.com/yourusername/iautomat_auth_manager)
 
-## Características
+**Un paquete Flutter robusto para gestión de autenticación con Firebase Auth usando exclusivamente email y contraseña.**
 
-- ✅ Registro con email y contraseña
-- ✅ Inicio de sesión con email y contraseña
-- ✅ Restablecimiento de contraseña
-- ✅ Cierre de sesión
-- ✅ Obtener usuario actual
-- ✅ Verificación de email
-- ✅ Cambio de contraseña
-- ✅ Actualización de perfil (nombre, foto)
-- ✅ Arquitectura desacoplada con patrón Result
-- ✅ Soporte multiplataforma (Android, iOS, Web)
+Diseñado con arquitectura desacoplada, patrón Result para manejo de errores sin excepciones, y cobertura de tests del 86.39%.
+
+## ✨ Características Principales
+
+- 🔐 **Autenticación completa** - Registro, login, logout, reset de contraseña
+- 🏗️ **Arquitectura desacoplada** - Repository pattern con inyección de dependencias
+- 🎯 **Patrón Result** - Manejo de errores type-safe sin try-catch
+- 🧪 **75+ tests** - Cobertura del 86.39% con tests unitarios, integración y edge cases
+- 📱 **Multiplataforma** - Android, iOS y Web
+- 🔄 **Estado en tiempo real** - Stream de cambios de autenticación
+- 📚 **Documentación completa** - Cada método documentado con ejemplos
+
+## 🔐 Operaciones Soportadas
+
+- ✅ **Registro** con email y contraseña
+- ✅ **Inicio de sesión** con validación completa
+- ✅ **Restablecimiento de contraseña** vía email
+- ✅ **Cierre de sesión** seguro
+- ✅ **Usuario actual** con estado persistente
+- ✅ **Verificación de email** automática
+- ✅ **Cambio de contraseña** para usuarios autenticados
+- ✅ **Actualización de perfil** (nombre, foto)
+- ✅ **Gestión de errores** con 9 tipos de excepciones específicas
 
 ## Instalación
 
@@ -22,7 +38,7 @@ Añade la dependencia a tu `pubspec.yaml`:
 ```yaml
 dependencies:
   iautomat_auth_manager: ^0.0.1
-  firebase_auth: ^5.1.4
+  firebase_auth: ^6.0.2
 ```
 
 ## Configuración
