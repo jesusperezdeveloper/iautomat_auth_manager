@@ -1,0 +1,8 @@
+# Flutter/Dart
+build/
+.idea/
+.packages
+.pub/
+*.lock
+*.iml
+.DS_Store
