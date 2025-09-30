@@ -21,21 +21,3 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   mockito: ^5.4.4
   build_runner: ^2.4.9
-
-topics:
-  - flutter
-  - firebase
-  - authentication
-  - auth
-  - firebase-auth
-  - email-password
-  - result-pattern
-  - dart
-
-platforms:
-  android:
-  ios:
-  web:
-
-# The following section is specific to Flutter packages.
-flutter:
