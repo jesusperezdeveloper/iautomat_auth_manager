@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iautomat_auth_manager/iautomat_auth_manager.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+import 'package:supabase/supabase.dart' as supabase;
 
 /// Ejemplo de uso de iautomat_auth_manager con Supabase Auth.
 ///
 /// Este ejemplo muestra cómo:
-/// - Inicializar Supabase
+/// - Inicializar cliente de Supabase
 /// - Crear un repositorio de autenticación con Supabase
 /// - Registrar usuarios
 /// - Iniciar sesión
@@ -13,12 +13,6 @@ import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
 /// - Escuchar cambios de estado de autenticación
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Inicializar Supabase
-  await supabase.Supabase.initialize(
-    url: 'YOUR_SUPABASE_URL', // Reemplazar con tu URL de Supabase
-    anonKey: 'YOUR_SUPABASE_ANON_KEY', // Reemplazar con tu clave anónima
-  );
 
   runApp(const SupabaseAuthExample());
 }
@@ -49,6 +43,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   // Crear repositorio usando Supabase
   late final AuthRepository authRepository;
+  late final supabase.SupabaseClient _supabaseClient;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -59,15 +54,21 @@ class _AuthScreenState extends State<AuthScreen> {
   void initState() {
     super.initState();
 
+    // Crear cliente de Supabase
+    _supabaseClient = supabase.SupabaseClient(
+      'YOUR_SUPABASE_URL', // Reemplazar con tu URL de Supabase
+      'YOUR_SUPABASE_ANON_KEY', // Reemplazar con tu clave anónima
+    );
+
     // Opción 1: Crear directamente con SupabaseAuthRepository
     authRepository = SupabaseAuthRepository(
-      supabaseClient: supabase.Supabase.instance.client,
+      supabaseClient: _supabaseClient,
     );
 
     // Opción 2: Usar el Factory
     // authRepository = AuthRepositoryFactory.create(
     //   provider: AuthProvider.supabase,
-    //   supabaseClient: supabase.Supabase.instance.client,
+    //   supabaseClient: _supabaseClient,
     // );
 
     // Escuchar cambios de autenticación

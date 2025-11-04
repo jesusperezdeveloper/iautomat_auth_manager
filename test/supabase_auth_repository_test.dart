@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:iautomat_auth_manager/iautomat_auth_manager.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+import 'package:supabase/supabase.dart' as supabase;
 
 // Mocks
 class MockSupabaseClient extends Mock implements supabase.SupabaseClient {}

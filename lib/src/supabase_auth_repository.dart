@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+import 'package:supabase/supabase.dart' as supabase;
 
 import 'auth_repository.dart';
 import 'models/user_model.dart';

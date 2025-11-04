@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
-import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+import 'package:supabase/supabase.dart' as supabase;
 
 import 'auth_repository.dart';
 import 'firebase_auth_repository.dart';

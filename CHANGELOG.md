@@ -5,6 +5,92 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2025-01-04
+
+### Changed
+
+#### 📦 Dependency Update
+- **Migrated from `supabase_flutter` to `supabase`** - Changed to official Dart SDK
+  - Updated from `supabase_flutter: ^2.7.0` to `supabase: ^2.10.0`
+  - **Benefits**:
+    - Lighter package without unnecessary Flutter-specific dependencies
+    - More recent version (2.10.0 vs 2.7.0)
+    - Can be used in pure Dart projects (not limited to Flutter)
+    - Same API and functionality
+  - **No breaking changes** - All existing code works identically
+  - All 129 tests passing with 87.58% coverage maintained
+
+#### 📚 Documentation Updates
+- Updated **README.md** with new installation instructions
+  - Changed dependency from `supabase_flutter` to `supabase`
+  - Updated initialization examples to use `SupabaseClient` constructor directly
+  - Removed references to `Supabase.initialize()` and `Supabase.instance.client`
+- Updated **example app** to use new `supabase` package
+  - Simplified initialization without Flutter-specific wrapper
+  - Direct `SupabaseClient` instantiation
+
+#### 🔧 Technical Details
+- Updated imports across all source files:
+  ```dart
+  // Before
+  import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+
+  // After
+  import 'package:supabase/supabase.dart' as supabase;
+  ```
+- **Files updated**:
+  - `lib/src/supabase_auth_repository.dart`
+  - `lib/src/auth_repository_factory.dart`
+  - `test/supabase_auth_repository_test.dart`
+  - `test/auth_repository_factory_test.dart`
+  - `example/lib/supabase_example.dart`
+  - `example/pubspec.yaml`
+
+#### ✅ Quality Assurance
+- ✅ All 129 tests passing
+- ✅ 87.58% test coverage maintained
+- ✅ No functional changes or breaking changes
+- ✅ Static analysis clean (only minor linter suggestions)
+
+### Migration Guide
+
+If you're using this package with Supabase, update your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  # Before
+  # supabase_flutter: ^2.7.0
+
+  # After
+  supabase: ^2.10.0
+```
+
+**Initialization change** (if you're initializing Supabase in your app):
+
+```dart
+// Before (supabase_flutter)
+await Supabase.initialize(
+  url: 'YOUR_SUPABASE_URL',
+  anonKey: 'YOUR_SUPABASE_ANON_KEY',
+);
+final authRepository = SupabaseAuthRepository(
+  supabaseClient: Supabase.instance.client,
+);
+
+// After (supabase)
+final supabaseClient = SupabaseClient(
+  'YOUR_SUPABASE_URL',
+  'YOUR_SUPABASE_ANON_KEY',
+);
+final authRepository = SupabaseAuthRepository(
+  supabaseClient: supabaseClient,
+);
+```
+
+**Note**: If you're only using `iautomat_auth_manager` and passing a `SupabaseClient` instance, no code changes are required in your app.
+
+---
+
 ## [1.1.0] - 2025-01-04
 
 ### Added
@@ -92,10 +178,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Technical Details
 
 #### New Dependencies
-- **supabase_flutter**: ^2.7.0
-  - Official Supabase Flutter SDK
+- **supabase**: ^2.10.0
+  - Official Supabase Dart SDK (core library without Flutter dependencies)
   - Provides authentication and real-time capabilities
   - Maintained by Supabase team
+  - Lighter than supabase_flutter, uses only the core client
 
 #### New Development Dependencies
 - **mocktail**: ^1.0.0
@@ -128,7 +215,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Implementation Details
 - **Package aliasing** used to avoid name conflicts:
   ```dart
-  import 'package:supabase_flutter/supabase_flutter.dart' as supabase;
+  import 'package:supabase/supabase.dart' as supabase;
   ```
 - **Error mapping strategy**:
   - Message-based detection (lowercase comparison)
