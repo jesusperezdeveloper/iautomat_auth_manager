@@ -1,6 +1,6 @@
 name: iautomat_auth_manager
-description: "A robust Flutter package for authentication management with Firebase Auth using email and password. Features Result pattern, comprehensive error handling, and full test coverage."
-version: 1.0.0
+description: "A robust Flutter package for authentication management with multiple providers (Firebase Auth & Supabase Auth) using email and password. Features Result pattern, comprehensive error handling, and 87%+ test coverage."
+version: 1.1.0
 homepage: https://github.com/yourusername/iautomat_auth_manager
 repository: https://github.com/yourusername/iautomat_auth_manager
 issue_tracker: https://github.com/yourusername/iautomat_auth_manager/issues
@@ -14,6 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth: ^6.0.2
+  supabase_flutter: ^2.7.0
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +22,4 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   mockito: ^5.4.4
   build_runner: ^2.4.9
+  mocktail: ^1.0.0
