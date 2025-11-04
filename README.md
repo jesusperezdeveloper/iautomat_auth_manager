@@ -5,16 +5,17 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Test Coverage](https://img.shields.io/badge/coverage-86.39%25-brightgreen.svg)](https://github.com/yourusername/iautomat_auth_manager)
 
-**Un paquete Flutter robusto para gestión de autenticación con Firebase Auth usando exclusivamente email y contraseña.**
+**Un paquete Flutter robusto para gestión de autenticación con múltiples providers (Firebase Auth y Supabase Auth) usando exclusivamente email y contraseña.**
 
 Diseñado con arquitectura desacoplada, patrón Result para manejo de errores sin excepciones, y cobertura de tests del 86.39%.
 
 ## ✨ Características Principales
 
+- 🔥 **Múltiples providers** - Firebase Auth y Supabase Auth con la misma interface
 - 🔐 **Autenticación completa** - Registro, login, logout, reset de contraseña
 - 🏗️ **Arquitectura desacoplada** - Repository pattern con inyección de dependencias
 - 🎯 **Patrón Result** - Manejo de errores type-safe sin try-catch
-- 🧪 **75+ tests** - Cobertura del 86.39% con tests unitarios, integración y edge cases
+- 🧪 **100+ tests** - Cobertura del 86.39% con tests unitarios, integración y edge cases
 - 📱 **Multiplataforma** - Android, iOS y Web
 - 🔄 **Estado en tiempo real** - Stream de cambios de autenticación
 - 📚 **Documentación completa** - Cada método documentado con ejemplos
@@ -31,33 +32,78 @@ Diseñado con arquitectura desacoplada, patrón Result para manejo de errores si
 - ✅ **Actualización de perfil** (nombre, foto)
 - ✅ **Gestión de errores** con 9 tipos de excepciones específicas
 
-## Instalación
+## 📦 Instalación
 
 Añade la dependencia a tu `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  iautomat_auth_manager: ^0.0.1
+  iautomat_auth_manager: ^1.0.0
+
+  # Para Firebase Auth
   firebase_auth: ^6.0.2
+
+  # Para Supabase Auth
+  supabase_flutter: ^2.7.0
 ```
 
-## Configuración
+## ⚙️ Configuración
+
+### Firebase Auth
 
 Este paquete requiere que tengas Firebase configurado en tu proyecto Flutter. Sigue las [instrucciones oficiales de Firebase](https://firebase.google.com/docs/flutter/setup).
 
-## Uso básico
+### Supabase Auth
+
+Para usar Supabase, sigue las [instrucciones oficiales de Supabase](https://supabase.com/docs/guides/getting-started/quickstarts/flutter).
+
+## 🚀 Uso básico
 
 ### 1. Inicialización
+
+#### Opción A: Usando Firebase Auth
 
 ```dart
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:iautomat_auth_manager/iautomat_auth_manager.dart';
 
-// Crear una instancia del repositorio
+// Directamente con FirebaseAuthRepository
 final authRepository = FirebaseAuthRepository(
   firebaseAuth: FirebaseAuth.instance,
 );
+
+// O usando el Factory
+final authRepository = AuthRepositoryFactory.create(
+  provider: AuthProvider.firebase,
+  firebaseAuth: FirebaseAuth.instance,
+);
 ```
+
+#### Opción B: Usando Supabase Auth
+
+```dart
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:iautomat_auth_manager/iautomat_auth_manager.dart';
+
+// Inicializar Supabase primero
+await Supabase.initialize(
+  url: 'YOUR_SUPABASE_URL',
+  anonKey: 'YOUR_SUPABASE_ANON_KEY',
+);
+
+// Directamente con SupabaseAuthRepository
+final authRepository = SupabaseAuthRepository(
+  supabaseClient: Supabase.instance.client,
+);
+
+// O usando el Factory
+final authRepository = AuthRepositoryFactory.create(
+  provider: AuthProvider.supabase,
+  supabaseClient: Supabase.instance.client,
+);
+```
+
+> **Nota:** El resto de la API es idéntica para ambos providers. Simplemente elige tu provider preferido y usa la misma interface `AuthRepository`.
 
 ### 2. Registro de usuario
 
@@ -169,7 +215,37 @@ if (result.isSuccess) {
 - `UserDisabledException` - Usuario deshabilitado
 - `GenericAuthException` - Error genérico
 
-## Contribuir
+## 🔄 Cambiar entre Providers
+
+Una de las ventajas clave de este paquete es que puedes cambiar entre Firebase y Supabase sin modificar tu lógica de negocio:
+
+```dart
+// En desarrollo, puedes usar Firebase
+final authRepo = AuthRepositoryFactory.create(
+  provider: AuthProvider.firebase,
+  firebaseAuth: FirebaseAuth.instance,
+);
+
+// En producción, cambiar a Supabase es tan simple como:
+final authRepo = AuthRepositoryFactory.create(
+  provider: AuthProvider.supabase,
+  supabaseClient: Supabase.instance.client,
+);
+```
+
+## 📊 Comparación de Providers
+
+| Característica | Firebase Auth | Supabase Auth |
+|---------------|--------------|---------------|
+| Email/Password | ✅ | ✅ |
+| Verificación Email | ✅ | ✅ |
+| Reset Password | ✅ | ✅ |
+| Actualizar Perfil | ✅ | ✅ |
+| Auth State Stream | ✅ | ✅ |
+| Manejo de Errores | Unificado | Unificado |
+| Interface | Idéntica | Idéntica |
+
+## 🤝 Contribuir
 
 Las contribuciones son bienvenidas. Por favor:
 
